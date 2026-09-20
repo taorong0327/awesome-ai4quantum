@@ -24,8 +24,8 @@
   - [🧪 Hardware: noise, data, and simulation](#hardware--noise-data-and-simulation)
   - [🧠 Decoder systems](#decoder-systems)
   - [⚡ Runtime and adaptive operation](#runtime-and-adaptive-operation)
-- **[📡 Radar — recent frontier signals](#radar)** — new papers, benchmarks, and open projects worth tracking.
-- **[🧩 Ecosystem — reproduce and extend](#ecosystem)** — data, simulators, implementations, and benchmarks.
+- **[📡 Radar — what's new](#radar)** 
+- **[🧩 Ecosystem — reproduce and tool](#ecosystem)**
 - **[🛤 Parallel tracks](#parallel-tracks)** — adjacent but non-core research directions.
 - [🌍 Related lists](#related-lists) · [🫶 Contributing](#contributing) · [📜 License](#license)
 

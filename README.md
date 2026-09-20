@@ -1,69 +1,48 @@
 # Awesome AI for Practical Quantum Computing ⚛️
 
 <p align="center">
-  <img src="assets/qec-chaos-mascot.png" width="760" alt="A lively quantum error-correction mascot with a syndrome graph, detector sparkle, lightning bolt, and checker tile." />
+  <img src="assets/qec-chaos-mascot.png" width="560" alt="A lively quantum error-correction mascot with a syndrome graph, detector sparkle, lightning bolt, and checker tile." />
 </p>
 
 <p align="center">
-  <kbd>🧪 system simulation</kbd>&nbsp;
-  <kbd>🧠 decoder systems</kbd>&nbsp;
-  <kbd>⚡ runtime control</kbd>
+  <strong>🧪 hardware signals</strong>&nbsp; → &nbsp;
+  <strong>🧠 decoder decisions</strong>&nbsp; → &nbsp;
+  <strong>⚡ runtime adaptation</strong>
 </p>
 
-<p align="center"><em>don't panic. model everything · ship the science. ✨</em></p>
-
-> **Classical AI/ML for hardware-adaptive quantum error correction (QEC)**: real-device noise, data, and system simulation; decoder systems; runtime deployment; and closed-loop adaptation.
+> **The Mainline — hardware-adaptive QEC system maturation.**
 >
-> 🗓️ Updated regularly — fresh papers, runnable artifacts, and controlled chaos.
+> `real-device noise & simulation → decoder systems → runtime deployment & adaptation`
+>
+>  **classical AI/ML for practical, fault-tolerant quantum systems**.
+>
+>  *what moves a QEC system from a model demo toward operation?*
 
-## 📡📡📡 What's New in the Radar? 📡📡📡
+## 🧭 Directory
 
-New papers, benchmarks, and open projects worth tracking.
+- **[🏁 Mainline — hardware-adaptive QEC](#mainline)**
+  - [🧪 Hardware: noise, data, and simulation](#hardware--noise-data-and-simulation)
+  - [🧠 Decoder systems](#decoder-systems)
+  - [⚡ Runtime and adaptive operation](#runtime-and-adaptive-operation)
+- **[📡 Radar — recent frontier signals](#radar)** — new papers, benchmarks, and open projects worth tracking.
+- **[🧩 Ecosystem — reproduce and extend](#ecosystem)** — data, simulators, implementations, and benchmarks.
+- **[🛤 Parallel tracks](#parallel-tracks)** — adjacent but non-core research directions.
+- [🌍 Related lists](#related-lists) · [🫶 Contributing](#contributing) · [📜 License](#license)
 
-### 🔥 Decoder
+---
 
-- [Learning to decode logical circuits (MCCD)](https://www.nature.com/articles/s43588-025-00897-4) — Modular LSTM decoding for correlated errors in entangling logical circuits.<br>
-  **Reproduction:** [data](https://doi.org/10.5281/zenodo.17196063) · [code](https://doi.org/10.5281/zenodo.17196115) · **simulation:** [Stim](https://github.com/quantumlib/Stim) · neutral-atom-motivated surface-code circuit-level noise · mirror-symmetric random logical Clifford circuits at distance 3 and 5. → [Decoder systems](#decoder-systems) `[2025] [simulation] [open-code] [public-data]`
+<a id="mainline"></a>
 
-- [Machine learning message-passing for scalable QLDPC decoding (Astra)](https://www.nature.com/articles/s41534-025-01033-w) — A graph-neural decoder that learns message passing on Tanner graphs and transfers from lower to larger surface and bivariate-bicycle code distances.<br>
-  **Reproduction:** [code](https://github.com/arshpreetmaan/astra) · **simulation:** code-capacity depolarizing noise on surface- and bivariate-bicycle-code Tanner graphs · train/test scripts included. → [Decoder systems](#decoder-systems) `[2025] [simulation] [open-code]`
+## 🏁 Mainline — hardware-adaptive QEC system maturation
 
-- [Ising Decoding](https://github.com/NVIDIA/Ising-Decoding) — Open training and deployment recipes for AI QEC predecoders followed by a global decoder.<br>
-  **Reproduction:** [repository](https://github.com/NVIDIA/Ising-Decoding) · **simulation:** public training/inference configs for surface and color codes · optimized inference, ONNX/quantization, and CUDA-Q QEC hand-off recipes. → [Reproducibility ecosystem](#reproducibility-ecosystem) `[2026] [open-code] [industry-artifact] [simulation]`
-
-### 🔥 Runtime
-
-- [Reinforcement learning control of quantum error correction](https://www.nature.com/articles/s41586-026-10759-2) — Detection events steer more than 1,000 QEC control parameters on Willow under drift.<br>
-  **Reproduction:** [experiment data](https://doi.org/10.5281/zenodo.17566521) · **hardware:** repeated Willow QEC runs under drift · **simulation:** proprietary dynamic surface-code models scale the policy study to distance 15 · source code and simulator are not public. → [Runtime and adaptive operation](#runtime-and-adaptive-operation) `[2026] [hardware] [simulation] [public-data] [code-closed]`
-
-- [Automating quantum computing laboratory experiments with an agent-based AI framework](https://doi.org/10.1016/j.patter.2025.101372) — A knowledge-based agent workflow for planning, executing, and analysing quantum-laboratory experiments, demonstrated on a three-qubit subset of a 16-qubit superconducting processor.<br>
-  **Reproduction:** **hardware:** three-qubit experiments on a 16-qubit superconducting processor · the primary paper describes the workflow; a public implementation is not indexed here. → [Runtime and adaptive operation](#runtime-and-adaptive-operation) `[2025] [hardware]`
-
-- [QCalEval](https://arxiv.org/abs/2604.25884) — A VLM benchmark for quantum-calibration plot understanding; useful for calibration-agent evaluation, not evidence of closed-loop QEC control.<br>
-  **Reproduction:** [evaluation scripts](https://github.com/NVIDIA/QCalEval) · [benchmark dataset](https://huggingface.co/datasets/nvidia/QCalEval) · zero-shot, in-context-learning, and judge runners across 243 examples, 87 scenario types, and 22 experiment families. → [Reproducibility ecosystem](#reproducibility-ecosystem) `[2026] [preprint] [benchmark] [open-code] [public-data]`
-
-### 🔥 Simulation
-
-- [Reinforcement Learning for Syndrome Extraction](https://arxiv.org/abs/2609.12020) — PPO searches syndrome-extraction CNOT orderings with an importance-sampled logical-error reward, evaluating schedules in a decoder-in-the-loop simulation up to distance 15.<br>
-  **Reproduction:** **simulation:** [Stim](https://github.com/quantumlib/Stim)-based circuit-level schedule evaluation with target-noise decoders and Monte-Carlo importance sampling · no public code or data artifact was indexed at curation. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation]`
-
-- [A Sim-to-Real Study of Surface-Code Decoder Benchmarking](https://arxiv.org/abs/2609.04557) — Compares six decoders across a four-rung synthetic-noise ladder and Willow data; operation-type-specific rates are sufficient for decoder-rank agreement with hardware in the reported study.<br>
-  **Reproduction:** **hardware:** Willow data at three code distances, two bases, and 15 round counts · **simulation:** increasingly structured circuit-noise ladder with accuracy and latency evaluation · authors state that pipeline and per-shot outcomes are released, but a stable artifact link was not indexed at curation. → [Decoder systems](#decoder-systems) `[2026] [preprint] [hardware] [simulation] [benchmark]`
-
-- [QMCtwin: Master-Equation Simulation of Syndrome Statistics Beyond Pauli Noise](https://arxiv.org/abs/2606.19848) — A 97-qubit surface-code digital twin models relaxation, dephasing, coherent miscalibration, residual ZZ, and detuning to generate decoder-facing syndrome statistics beyond Pauli twirling.<br>
-  **Reproduction:** [circuits, data, and figure scripts](https://github.com/USCqserver/DataRepo-Surface-Code-QMC-Sim) · **simulation:** master-equation modelling of distance-7 syndrome extraction · the full QMC solver is not included in the public artifact. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation] [public-data]`
-
-- [Simulating Quantum Error Correction beyond Pauli Stochastic Errors](https://arxiv.org/abs/2603.18457) — Maps sufficiently small Markovian circuit-level non-Pauli errors to a decoder-facing detector-error model, enabling Monte-Carlo logical-error estimation and noise-adapted decoding beyond Pauli twirling.<br>
-  **Reproduction:** **simulation:** surface and bivariate-bicycle syndrome extraction plus magic-state cultivation · no official runnable artifact was indexed at curation. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation]`
-
-## 🏁🏁🏁 Mainline: Practical QEC Pathway 🏁🏁🏁
+> characterize or model the device → decode its syndromes → deploy and adapt.
 
 ```text
-hardware layer (noise, data, simulation)
-                ↓
-decoder systems
-                ↓
-runtime layer
+🧪 hardware layer: noise, data, simulation
+                    ↓
+🧠 decoder systems
+                    ↓
+⚡ runtime layer
 ```
 
 <a id="hardware--noise-data-and-simulation"></a>
@@ -163,11 +142,55 @@ What error process the decoder actually faces: leakage, crosstalk, readout effec
 - [Realizing a deep reinforcement learning agent for real-time quantum feedback](https://www.nature.com/articles/s41467-023-42901-3) — Direct-on-experiment RL training with sub-microsecond FPGA feedback for a superconducting qubit; important for control, but not a full QEC system.<br>
   **Reproduction:** [experiment data](https://doi.org/10.3929/ethz-b-000637125) · **hardware:** superconducting qubit with sub-microsecond FPGA feedback · analysis code is available from the authors on request · live execution requires FPGA-integrated hardware. `[2023] [hardware] [latency-reported] [historical-precursor]`
 
+<a id="radar"></a>
+
+## 📡 Radar — What's new?
+
+The update feed.
+
+### 🔥 Decoder
+
+- [Learning to decode logical circuits (MCCD)](https://www.nature.com/articles/s43588-025-00897-4) — Modular LSTM decoding for correlated errors in entangling logical circuits.<br>
+  **Reproduction:** [data](https://doi.org/10.5281/zenodo.17196063) · [code](https://doi.org/10.5281/zenodo.17196115) · **simulation:** [Stim](https://github.com/quantumlib/Stim) · neutral-atom-motivated surface-code circuit-level noise · mirror-symmetric random logical Clifford circuits at distance 3 and 5. → [Decoder systems](#decoder-systems) `[2025] [simulation] [open-code] [public-data]`
+
+- [Machine learning message-passing for scalable QLDPC decoding (Astra)](https://www.nature.com/articles/s41534-025-01033-w) — A graph-neural decoder that learns message passing on Tanner graphs and transfers from lower to larger surface and bivariate-bicycle code distances.<br>
+  **Reproduction:** [code](https://github.com/arshpreetmaan/astra) · **simulation:** code-capacity depolarizing noise on surface- and bivariate-bicycle-code Tanner graphs · train/test scripts included. → [Decoder systems](#decoder-systems) `[2025] [simulation] [open-code]`
+
+- [Ising Decoding](https://github.com/NVIDIA/Ising-Decoding) — Open training and deployment recipes for AI QEC predecoders followed by a global decoder.<br>
+  **Reproduction:** [repository](https://github.com/NVIDIA/Ising-Decoding) · **simulation:** public training/inference configs for surface and color codes · optimized inference, ONNX/quantization, and CUDA-Q QEC hand-off recipes. → [Reproducibility ecosystem](#reproducibility-ecosystem) `[2026] [open-code] [industry-artifact] [simulation]`
+
+### 🔥 Runtime
+
+- [Reinforcement learning control of quantum error correction](https://www.nature.com/articles/s41586-026-10759-2) — Detection events steer more than 1,000 QEC control parameters on Willow under drift.<br>
+  **Reproduction:** [experiment data](https://doi.org/10.5281/zenodo.17566521) · **hardware:** repeated Willow QEC runs under drift · **simulation:** proprietary dynamic surface-code models scale the policy study to distance 15 · source code and simulator are not public. → [Runtime and adaptive operation](#runtime-and-adaptive-operation) `[2026] [hardware] [simulation] [public-data] [code-closed]`
+
+- [Automating quantum computing laboratory experiments with an agent-based AI framework](https://doi.org/10.1016/j.patter.2025.101372) — A knowledge-based agent workflow for planning, executing, and analysing quantum-laboratory experiments, demonstrated on a three-qubit subset of a 16-qubit superconducting processor.<br>
+  **Reproduction:** **hardware:** three-qubit experiments on a 16-qubit superconducting processor · the primary paper describes the workflow; a public implementation is not indexed here. → [Runtime and adaptive operation](#runtime-and-adaptive-operation) `[2025] [hardware]`
+
+- [QCalEval](https://arxiv.org/abs/2604.25884) — A VLM benchmark for quantum-calibration plot understanding; useful for calibration-agent evaluation, not evidence of closed-loop QEC control.<br>
+  **Reproduction:** [evaluation scripts](https://github.com/NVIDIA/QCalEval) · [benchmark dataset](https://huggingface.co/datasets/nvidia/QCalEval) · zero-shot, in-context-learning, and judge runners across 243 examples, 87 scenario types, and 22 experiment families. → [Reproducibility ecosystem](#reproducibility-ecosystem) `[2026] [preprint] [benchmark] [open-code] [public-data]`
+
+### 🔥 Simulation
+
+- [Reinforcement Learning for Syndrome Extraction](https://arxiv.org/abs/2609.12020) — PPO searches syndrome-extraction CNOT orderings with an importance-sampled logical-error reward, evaluating schedules in a decoder-in-the-loop simulation up to distance 15.<br>
+  **Reproduction:** **simulation:** [Stim](https://github.com/quantumlib/Stim)-based circuit-level schedule evaluation with target-noise decoders and Monte-Carlo importance sampling · no public code or data artifact was indexed at curation. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation]`
+
+- [A Sim-to-Real Study of Surface-Code Decoder Benchmarking](https://arxiv.org/abs/2609.04557) — Compares six decoders across a four-rung synthetic-noise ladder and Willow data; operation-type-specific rates are sufficient for decoder-rank agreement with hardware in the reported study.<br>
+  **Reproduction:** **hardware:** Willow data at three code distances, two bases, and 15 round counts · **simulation:** increasingly structured circuit-noise ladder with accuracy and latency evaluation · authors state that pipeline and per-shot outcomes are released, but a stable artifact link was not indexed at curation. → [Decoder systems](#decoder-systems) `[2026] [preprint] [hardware] [simulation] [benchmark]`
+
+- [QMCtwin: Master-Equation Simulation of Syndrome Statistics Beyond Pauli Noise](https://arxiv.org/abs/2606.19848) — A 97-qubit surface-code digital twin models relaxation, dephasing, coherent miscalibration, residual ZZ, and detuning to generate decoder-facing syndrome statistics beyond Pauli twirling.<br>
+  **Reproduction:** [circuits, data, and figure scripts](https://github.com/USCqserver/DataRepo-Surface-Code-QMC-Sim) · **simulation:** master-equation modelling of distance-7 syndrome extraction · the full QMC solver is not included in the public artifact. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation] [public-data]`
+
+- [Simulating Quantum Error Correction beyond Pauli Stochastic Errors](https://arxiv.org/abs/2603.18457) — Maps sufficiently small Markovian circuit-level non-Pauli errors to a decoder-facing detector-error model, enabling Monte-Carlo logical-error estimation and noise-adapted decoding beyond Pauli twirling.<br>
+  **Reproduction:** **simulation:** surface and bivariate-bicycle syndrome extraction plus magic-state cultivation · no official runnable artifact was indexed at curation. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation]`
+
 <a id="reproducibility-ecosystem"></a>
 
-## 🧩🧩🧩 Ecosystem 🧩🧩🧩
+<a id="ecosystem"></a>
 
-### 📦 Data and measurement traces
+## 🧩 Ecosystem — tools and reproduce
+
+### 📦 Data
 
 - [Sycamore QEC data for AlphaQubit](https://doi.org/10.5281/zenodo.6804040) — Hardware syndrome, soft-readout, and leakage data. `[public-data] [hardware]`
 - [Willow below-threshold QEC data](https://doi.org/10.5281/zenodo.13273331) — Hardware surface-code QEC data. `[public-data] [hardware]`
@@ -194,7 +217,9 @@ What error process the decoder actually faces: leakage, crosstalk, readout effec
 - [QEC LEGO Bench](https://qec-lego-bench.readthedocs.io/en/latest/) — Early-stage, latency-aware streaming benchmark infrastructure. `[benchmark] [open-code]`
 - [StabilizerBench](https://arxiv.org/abs/2604.21287) — Evaluation for AI QEC-circuit synthesis, not decoder comparison. `[benchmark]`
 
-## 🛤️🛤️🛤️ Parallel Tracks 🛤️🛤️🛤️
+<a id="parallel-tracks"></a>
+
+## 🛤 Parallel tracks
 
 ### 🧮 Fault-tolerant resource optimization
 
@@ -220,13 +245,13 @@ What error process the decoder actually faces: leakage, crosstalk, readout effec
 
 ### 🩹 Quantum error mitigation (QEM)
 
-QEM uses additional sampling and post-processing to estimate ideal outcomes from noisy executions. It can coexist with QEC, but is not the route to scalable fault-tolerant protection.
-
 - [Machine learning for practical quantum error mitigation](https://www.nature.com/articles/s42256-024-00927-2) — ML-QEM demonstrated on IBM hardware with code and data release.<br>
   **Reproduction:** [code, configurations, training/evaluation scripts, and datasets](https://github.com/qiskit-community/ml-qem/tree/research_branch) · [archival release](https://doi.org/10.5281/zenodo.13769804) · **hardware:** IBM quantum-device experiments. `[2024] [hardware] [open-code] [public-data]`
 
 - [Exponentially tighter bounds on limitations of quantum error mitigation](https://www.nature.com/articles/s41567-024-02536-7) — A theoretical counterweight: generic QEM can require prohibitive sampling overhead.<br>
   **Reproduction:** **theory:** analytical result and proof; no empirical training or hardware artifact is required. `[2024] [theory]`
+
+<a id="related-lists"></a>
 
 ## 🌍 Related lists
 
@@ -234,9 +259,13 @@ QEM uses additional sampling and post-processing to estimate ideal outcomes from
 - [Awesome Quantum Software](https://github.com/qosf/awesome-quantum-software) — Broad quantum-software catalogue.
 - [ML4QTech Collection](https://github.com/ML4QTech/Collection) — Broader ML-for-quantum-science community collection.
 
+<a id="contributing"></a>
+
 ## 🫶 Contributing
 
 Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and include a primary source, a neutral description, a reproduction line, evidence tags, artifact status, and the exact workload or noise setting.
+
+<a id="license"></a>
 
 ## 📜 License
 

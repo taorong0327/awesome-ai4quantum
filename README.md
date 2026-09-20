@@ -5,12 +5,9 @@
 </p>
 
 <p align="center">
-  <strong>🧪 hardware signals</strong>&nbsp; → &nbsp;
-  <strong>🧠 decoder decisions</strong>&nbsp; → &nbsp;
-  <strong>⚡ runtime adaptation</strong>
 </p>
 
-> **The Mainline — hardware-adaptive QEC system maturation.**
+> **The Mainline**
 >
 > `real-device noise & simulation → decoder systems → runtime deployment & adaptation`
 >

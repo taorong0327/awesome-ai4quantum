@@ -1,155 +1,243 @@
-# Awesome AI for Quantum Hardware & Fault-Tolerant Computing
+# Awesome AI for Practical Quantum Computing ⚛️
 
-> A curated, evidence-tagged map of **classical AI/ML for quantum-hardware reliability and fault-tolerant computing** — QPU characterization and control, decoder engineering, adaptive QEC operations, and resource-aware fault-tolerant optimization.
+<p align="center">
+  <img src="assets/qec-chaos-mascot.png" width="760" alt="A lively quantum error-correction mascot with a syndrome graph, detector sparkle, lightning bolt, and checker tile." />
+</p>
 
-**This is not a Quantum Machine Learning (QML) list.** It does not collect quantum neural networks or quantum algorithms intended to accelerate classical machine learning.
+<p align="center">
+  <kbd>🧪 system simulation</kbd>&nbsp;
+  <kbd>🧠 decoder systems</kbd>&nbsp;
+  <kbd>⚡ runtime control</kbd>
+</p>
 
-The organizing unit is an engineering task, not an AI method, vendor, or paper format. This list favors work that changes an explicit quantum-engineering metric — logical error rate, deadline compliance, stability under drift, calibration yield, or fault-tolerant resource cost — and makes the evidence visible.
+<p align="center"><em>don't panic. model everything · ship the science. ✨</em></p>
 
-## Contents
+> **Classical AI/ML for hardware-adaptive quantum error correction (QEC)**: real-device noise, data, and system simulation; decoder systems; runtime deployment; and closed-loop adaptation.
+>
+> 🗓️ Updated regularly — fresh papers, runnable artifacts, and controlled chaos.
 
-- [How to read this list](#how-to-read-this-list)
-- [Core research map](#core-research-map)
-  - [1. QEC decoder systems](#1-qec-decoder-systems)
-  - [2. Adaptive QEC operations](#2-adaptive-qec-operations)
-  - [3. QPU reliability modelling, characterization, and calibration](#3-qpu-reliability-modelling-characterization-and-calibration)
-  - [4. Fault-tolerant resource optimization](#4-fault-tolerant-resource-optimization)
-- [Cross-cutting infrastructure](#cross-cutting-infrastructure)
-- [Frontier watchlist (updated September 2026)](#frontier-watchlist-updated-september-2026)
-- [Adjacent fields](#adjacent-fields)
-- [Contributing](#contributing)
-- [License](#license)
+## 📡📡📡 What's New in the Radar? 📡📡📡
 
-## How to read this list
+New papers, benchmarks, and open projects worth tracking.
 
-### Map logic
+### 🔥 Decoder
 
-| Research task | What is being improved | The claim that must eventually be tested |
-|---|---|---|
-| QEC decoder systems | Syndrome-to-correction inference | Logical error **and** deadline/throughput under an explicit noise and workload model |
-| Adaptive QEC operations | Decoder, calibration, or control updates from measurement history | Recovery from drift or non-stationarity without destabilizing the QEC experiment |
-| QPU reliability | Models and actions for characterization, calibration, and control | Calibration yield, fidelity/stability, time-to-tune, or downstream QEC benefit |
-| Fault-tolerant resource optimization | Verified logical circuits and their physical-resource cost | T count, qubits, spacetime volume, or another explicit fault-tolerant resource metric |
+- [Learning to decode logical circuits (MCCD)](https://www.nature.com/articles/s43588-025-00897-4) — Modular LSTM decoding for correlated errors in entangling logical circuits.<br>
+  **Reproduction:** [data](https://doi.org/10.5281/zenodo.17196063) · [code](https://doi.org/10.5281/zenodo.17196115) · **simulation:** [Stim](https://github.com/quantumlib/Stim) · neutral-atom-motivated surface-code circuit-level noise · mirror-symmetric random logical Clifford circuits at distance 3 and 5. → [Decoder systems](#decoder-systems) `[2025] [simulation] [open-code] [public-data]`
 
-Tools, simulators, data, and benchmarks are indexed as **horizontal infrastructure**. They are useful enablers, but not research directions equal to the four task layers above.
+- [Machine learning message-passing for scalable QLDPC decoding (Astra)](https://www.nature.com/articles/s41534-025-01033-w) — A graph-neural decoder that learns message passing on Tanner graphs and transfers from lower to larger surface and bivariate-bicycle code distances.<br>
+  **Reproduction:** [code](https://github.com/arshpreetmaan/astra) · **simulation:** code-capacity depolarizing noise on surface- and bivariate-bicycle-code Tanner graphs · train/test scripts included. → [Decoder systems](#decoder-systems) `[2025] [simulation] [open-code]`
 
-### Scope and editorial rule
+- [Ising Decoding](https://github.com/NVIDIA/Ising-Decoding) — Open training and deployment recipes for AI QEC predecoders followed by a global decoder.<br>
+  **Reproduction:** [repository](https://github.com/NVIDIA/Ising-Decoding) · **simulation:** public training/inference configs for surface and color codes · optimized inference, ONNX/quantization, and CUDA-Q QEC hand-off recipes. → [Reproducibility ecosystem](#reproducibility-ecosystem) `[2026] [open-code] [industry-artifact] [simulation]`
 
-An item enters a **core** section only when it has a clear engineering target and meets the admission threshold in the [Evidence Policy](docs/EVIDENCE.md): a peer-reviewed result plus either meaningful hardware/system validation or a runnable public artifact with a defined evaluation contract. `Frontier` is deliberately different: it contains promising directions with a falsifiable next test, not declared winners.
+### 🔥 Runtime
 
-### Evidence tags
+- [Reinforcement learning control of quantum error correction](https://www.nature.com/articles/s41586-026-10759-2) — Detection events steer more than 1,000 QEC control parameters on Willow under drift.<br>
+  **Reproduction:** [experiment data](https://doi.org/10.5281/zenodo.17566521) · **hardware:** repeated Willow QEC runs under drift · **simulation:** proprietary dynamic surface-code models scale the policy study to distance 15 · source code and simulator are not public. → [Runtime and adaptive operation](#runtime-and-adaptive-operation) `[2026] [hardware] [simulation] [public-data] [code-closed]`
 
-- `[peer-reviewed]` / `[preprint]` — publication maturity.
-- `[hardware]`, `[simulation]`, or `[theory]` — evaluation setting; more than one may apply.
-- `[public-data]` / `[data-restricted]`, `[open-code]` / `[code-closed]`, `[public-artifact]`, or `[industry-artifact]` — data and implementation accessibility.
-- `[latency-reported]` — the source reports a timing or throughput result relevant to deployment.
-- `[benchmark]`, `[supporting-tool]`, and `[historical-precursor]` — editorial context, not quality rankings.
+- [Automating quantum computing laboratory experiments with an agent-based AI framework](https://doi.org/10.1016/j.patter.2025.101372) — A knowledge-based agent workflow for planning, executing, and analysing quantum-laboratory experiments, demonstrated on a three-qubit subset of a 16-qubit superconducting processor.<br>
+  **Reproduction:** **hardware:** three-qubit experiments on a 16-qubit superconducting processor · the primary paper describes the workflow; a public implementation is not indexed here. → [Runtime and adaptive operation](#runtime-and-adaptive-operation) `[2025] [hardware]`
 
-Unknown status is omitted rather than guessed. For the detailed admission and labeling policy, see [Evidence Policy](docs/EVIDENCE.md).
+- [QCalEval](https://arxiv.org/abs/2604.25884) — A VLM benchmark for quantum-calibration plot understanding; useful for calibration-agent evaluation, not evidence of closed-loop QEC control.<br>
+  **Reproduction:** [evaluation scripts](https://github.com/NVIDIA/QCalEval) · [benchmark dataset](https://huggingface.co/datasets/nvidia/QCalEval) · zero-shot, in-context-learning, and judge runners across 243 examples, 87 scenario types, and 22 experiment families. → [Reproducibility ecosystem](#reproducibility-ecosystem) `[2026] [preprint] [benchmark] [open-code] [public-data]`
 
-## Core research map
+### 🔥 Simulation
 
-### 1. QEC decoder systems
+- [Reinforcement Learning for Syndrome Extraction](https://arxiv.org/abs/2609.12020) — PPO searches syndrome-extraction CNOT orderings with an importance-sampled logical-error reward, evaluating schedules in a decoder-in-the-loop simulation up to distance 15.<br>
+  **Reproduction:** **simulation:** [Stim](https://github.com/quantumlib/Stim)-based circuit-level schedule evaluation with target-noise decoders and Monte-Carlo importance sampling · no public code or data artifact was indexed at curation. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation]`
 
-#### Device-conditioned decoding
+- [A Sim-to-Real Study of Surface-Code Decoder Benchmarking](https://arxiv.org/abs/2609.04557) — Compares six decoders across a four-rung synthetic-noise ladder and Willow data; operation-type-specific rates are sufficient for decoder-rank agreement with hardware in the reported study.<br>
+  **Reproduction:** **hardware:** Willow data at three code distances, two bases, and 15 round counts · **simulation:** increasingly structured circuit-noise ladder with accuracy and latency evaluation · authors state that pipeline and per-shot outcomes are released, but a stable artifact link was not indexed at curation. → [Decoder systems](#decoder-systems) `[2026] [preprint] [hardware] [simulation] [benchmark]`
 
-- [Learning high-accuracy error decoding for quantum processors (AlphaQubit)](https://www.nature.com/articles/s41586-024-08148-8) — A recurrent-transformer decoder that uses Sycamore syndrome data and soft-readout/leakage information; its distance-3–11 simulations additionally model crosstalk. It beats the reported tensor-network baseline on distance-3 and distance-5 hardware data. Its distance-11 result is realistic-noise simulation, not a large-QPU demonstration. `[2024] [peer-reviewed] [hardware] [simulation] [public-data]`
-- [Optimization of decoder priors for accurate quantum error correction](https://doi.org/10.1103/PhysRevLett.133.150603) — Calibrates hardware-informed decoder priors with an RL-inspired method in repetition- and surface-code memory experiments on Google’s Sycamore processor, bridging fixed analytic priors and device-adapted decoding. `[2024] [peer-reviewed] [hardware]`
-- [A fault-tolerant neutral-atom architecture for universal quantum computation](https://doi.org/10.1038/s41586-025-09848-5) — A cross-platform system case study that includes loss-aware ML decoding on a 448-atom neutral-atom platform. Its distance- and circuit-specific training limits remain explicit. `[2026] [peer-reviewed] [hardware]`
+- [QMCtwin: Master-Equation Simulation of Syndrome Statistics Beyond Pauli Noise](https://arxiv.org/abs/2606.19848) — A 97-qubit surface-code digital twin models relaxation, dephasing, coherent miscalibration, residual ZZ, and detuning to generate decoder-facing syndrome statistics beyond Pauli twirling.<br>
+  **Reproduction:** [circuits, data, and figure scripts](https://github.com/USCqserver/DataRepo-Surface-Code-QMC-Sim) · **simulation:** master-equation modelling of distance-7 syndrome extraction · the full QMC solver is not included in the public artifact. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation] [public-data]`
 
-#### Beyond memory experiments
+- [Simulating Quantum Error Correction beyond Pauli Stochastic Errors](https://arxiv.org/abs/2603.18457) — Maps sufficiently small Markovian circuit-level non-Pauli errors to a decoder-facing detector-error model, enabling Monte-Carlo logical-error estimation and noise-adapted decoding beyond Pauli twirling.<br>
+  **Reproduction:** **simulation:** surface and bivariate-bicycle syndrome extraction plus magic-state cultivation · no official runnable artifact was indexed at curation. → [Hardware — noise, data, and simulation](#hardware--noise-data-and-simulation) `[2026] [preprint] [simulation]`
 
-- [Learning to decode logical circuits (MCCD)](https://www.nature.com/articles/s43588-025-00897-4) — A modular, data-centric decoder for logical circuits with entangling operations; it moves the target from memory experiments to correlated logical workloads. `[2025] [peer-reviewed] [simulation] [open-code]`
-- [Machine learning message-passing for scalable QLDPC decoding (Astra)](https://www.nature.com/articles/s41534-025-01033-w) — A graph-native learned message-passing decoder for surface and bivariate-bicycle codes that extrapolates from lower to larger code distances. It is strategic, but remains simulation-first rather than hardware-validated. `[2025] [peer-reviewed] [simulation] [open-code]`
+## 🏁🏁🏁 Mainline: Practical QEC Pathway 🏁🏁🏁
 
-#### Real-time deployment and evaluation gap
+```text
+hardware layer (noise, data, simulation)
+                ↓
+decoder systems
+                ↓
+runtime layer
+```
 
-- [Quantum error correction below the surface code threshold](https://www.nature.com/articles/s41586-024-08449-y) — A system landmark for below-threshold QEC on Willow. It is also an essential cautionary reference: its high-accuracy neural decoder is an offline path, whereas the real-time decoder is a Sparse Blossom streaming stack. Accuracy and deadline compliance must be evaluated separately. `[2025] [peer-reviewed] [hardware] [public-data] [latency-reported]`
+<a id="hardware--noise-data-and-simulation"></a>
 
-### 2. Adaptive QEC operations
+### 🧪 Hardware — noise, data, and simulation
 
-This section covers systems that use QEC measurements to adapt a decoder, calibration, or control policy **across repeated experimental runs**. It is distinct from improving a static decoder on a fixed noise model.
+What error process the decoder actually faces: leakage, crosstalk, readout effects, drift, and calibration context. Generic engines are indexed in the [Reproducibility Ecosystem](#reproducibility-ecosystem).
 
-- [Real-time quantum error correction beyond break-even](https://doi.org/10.1038/s41586-023-05782-6) — A historical precursor: model-free reinforcement learning optimized bosonic-QEC control and achieved a reported logical-coherence gain beyond break-even. `[2023] [peer-reviewed] [hardware] [historical-precursor]`
-- [Realizing a deep reinforcement learning agent for real-time quantum feedback](https://www.nature.com/articles/s41467-023-42901-3) — Demonstrates direct-on-experiment RL training and sub-microsecond FPGA feedback for a superconducting qubit. It is a control precursor, rather than a full QEC system. `[2023] [peer-reviewed] [hardware] [latency-reported] [historical-precursor]`
-- [Reinforcement learning control of quantum error correction](https://www.nature.com/articles/s41586-026-10759-2) — Uses detection events as a learning signal to steer more than 1,000 QEC control parameters on Willow under drift. This is the clearest hardware evidence for closed-loop adaptive QEC; [public data](https://doi.org/10.5281/zenodo.17566521) are available, but code is proprietary and steering within a single long logical computation remains open. `[2026] [peer-reviewed] [hardware] [public-data] [code-closed]`
+#### 🔬 Device characterization and calibration
 
-### 3. QPU reliability modelling, characterization, and calibration
+- [Robustly learning the Hamiltonian dynamics of a superconducting quantum processor](https://www.nature.com/articles/s41467-024-52629-3) — Structure-exploiting learning estimates Hamiltonian dynamics from time-series data on up to 14 qubits of a Sycamore processor and diagnoses implementation deviations.<br>
+  **Reproduction:** **hardware:** time-series measurements on up to 14 Sycamore qubits · experimental data and code are available from the authors on request; no public runnable artifact was located. `[2024] [hardware]`
 
-This is deliberately **not** called “error mitigation.” The scope is learning hardware behavior that improves characterization, calibration, decoder adaptation, or compiler decisions.
+- [Fully autonomous tuning of a spin qubit](https://www.nature.com/articles/s41928-025-01562-4) — A hardware-tuning workflow combining learned classifiers, Bayesian optimization, and experimental feedback from an unenergized device through Rabi oscillations.<br>
+  **Reproduction:** [data](https://doi.org/10.5281/zenodo.17745219) · [code](https://github.com/oxquantum-repo/fully-autonomous-tuning) · **hardware:** compatible double-quantum-dot experiment · a dummy pipeline runs locally; full tuning requires live transport measurements and control integration. `[2026] [hardware] [open-code] [public-data]`
 
-- [Robustly learning the Hamiltonian dynamics of a superconducting quantum processor](https://www.nature.com/articles/s41467-024-52629-3) — Structure-exploiting learning identifies Hamiltonian dynamics on up to 14 sites of a Sycamore superconducting processor and diagnoses implementation deviations. `[2024] [peer-reviewed] [hardware]`
-- [Fully autonomous tuning of a spin qubit](https://www.nature.com/articles/s41928-025-01562-4) — A full hardware-tuning workflow combining learned classifiers, Bayesian optimization, and experimental feedback. It is a device-engineering result, not evidence that generic LLMs autonomously operate large QEC systems. `[2026] [peer-reviewed] [hardware] [open-code] [public-data]`
+- [Using detector likelihood for benchmarking quantum error correction](https://doi.org/10.1103/PhysRevA.111.052452) — Calibrates a simple effective-uniform simulation from measured detector likelihood, bridging complex hardware behavior and reproducible logical-error studies.<br>
+  **Reproduction:** [data and code](https://github.com/hetenyib/detector_likelihood_benchmarking) · **hardware:** IBM Floquet- and 3-CX-code memory experiments · **simulation:** matched effective-uniform models with released simulated traces and notebooks. `[2025] [hardware] [simulation] [open-code] [public-data]`
 
-### 4. Fault-tolerant resource optimization
+#### 🌪️ Hardware-informed noise simulation and data generation
 
-This deliberately narrow section includes work whose target is an explicit fault-tolerant resource metric, not generic circuit optimization alone.
+- [Scalable Noise Characterization of Syndrome-Extraction Circuits with Averaged Circuit Eigenvalue Sampling](https://doi.org/10.1103/PRXQuantum.6.010334) — ACES designs syndrome-extraction experiments that estimate Pauli gate-error probabilities and layer-averaged spatial correlations; the complete characterization procedure is demonstrated in circuit-level simulation of a distance-25 surface code with more than 1,000 qubits.<br>
+  **Reproduction:** [code](https://github.com/evanhockings/QuantumACES.jl/tree/scalable_aces) · **simulation:** Stim-backed ACES characterization for surface-code syndrome-extraction circuits, with decoder-prior evaluation and a Qiskit export path for device execution. `[2025] [simulation] [open-code]`
 
-- [Quantum circuit discovery for fault-tolerant logical state preparation with reinforcement learning](https://doi.org/10.1103/gqpr-dgz7) — A reinforcement-learning system for finding compact, hardware-constrained logical state-preparation circuits. Its targets are fault-tolerant and verification-based; hardware implementation remains future work. `[2025] [peer-reviewed] [simulation] [open-code]`
-- [Quantum circuit optimization with AlphaTensor-Quantum](https://www.nature.com/articles/s42256-025-01001-1) — A landmark for fault-tolerant T-count optimization: reinforcement learning plus tensor decomposition, explicit resource metrics, released code/data, and correctness checks. It is not a general zero-cost compiler; compute and generalization costs remain part of the result. `[2025] [peer-reviewed] [simulation] [open-code] [public-data]`
+- [Characterising the failure mechanisms of error-corrected quantum logic gates](https://www.nature.com/articles/s41467-026-71773-6) — Device-fit simulation of memory and lattice-surgery stability experiments identifies mid-circuit measurement and idling as key failure mechanisms on IBM’s heavy-hex hardware.<br>
+  **Reproduction:** [data and evaluation code](https://doi.org/10.5281/zenodo.18993470) · **hardware:** distance-3 heavy-hex memory and stability experiments on IBM’s 156-qubit Heron r2 Marrakesh processor · **simulation:** Stim model fit to 1Q/2Q depolarizing, measurement, reset, and idle errors, followed by parameter sweeps. `[2026] [hardware] [simulation] [open-code] [public-data]`
 
-## Cross-cutting infrastructure
+- [Simulation of thermal-relaxation noise for quantum error correction](https://doi.org/10.1103/hgnj-v4j7) — Composite amplitude-damping and dephasing decompositions enable stabilizer-compatible thermal-relaxation simulation beyond Pauli twirling, including an exact positive Clifford-and-reset regime when T₂ ≤ T₁.<br>
+  **Reproduction:** [public artifact](https://github.com/seangarn32/Composite-Decomposition) · **simulation:** superconducting T₁/T₂ thermal relaxation in surface- and bivariate-bicycle-code memory experiments; the artifact includes simulation files, experiment data, and figure generators. `[2026] [simulation] [public-artifact]`
 
-Infrastructure is indexed here for practical use. It is not presented as a research direction equal to QEC, QPU operation, or fault-tolerant resource optimization.
+- [FTPrimitiveBench: A Benchmark Suite for Logical Computation Under Hardware-Motivated and Biased Noise Models](https://arxiv.org/abs/2605.04049) — A benchmark substrate for logical computation, exposing interactions among structured noise, fault-tolerant primitive, and decoder rather than limiting evaluation to memory experiments.<br>
+  **Reproduction:** [code](https://github.com/ShuwenKan/FTPrimitiveBench) · **simulation:** [Stim](https://github.com/quantumlib/Stim) circuits with detector/observable annotations for memory, lattice surgery, transversal H, and lattice-surgery S · Pauli/measurement bias, calibration-derived profiles, and spatial or spatiotemporal non-uniformity. `[2026] [preprint] [simulation] [benchmark] [open-code]`
 
-### Benchmarks and evaluation contracts
+#### 🎮 Simulation-native QEC system search
 
-- [decoder-bench](https://github.com/satvikmaurya/decoder-bench) — Dataset-generation and evaluation tooling for comparing QEC decoders across codes, noise models, and memory or surface-code lattice-surgery workloads. `[2025] [benchmark] [open-code] [public-data]`
-- [QEC LEGO Bench](https://qec-lego-bench.readthedocs.io/en/latest/) — Composable benchmark and experiment infrastructure for QEC decoding. `[benchmark] [open-code]`
-- [StabilizerBench](https://arxiv.org/abs/2604.21287) — A 2026 benchmark for AI-assisted QEC circuit synthesis; useful as a Frontier evaluator, not yet a mature deployment result. `[2026] [preprint] [benchmark]`
+- [Simultaneous discovery of quantum error correction codes and encoders with a noise-aware reinforcement learning agent](https://www.nature.com/articles/s41534-024-00920-y) — A noise-aware PPO agent co-discovers stabilizer codes and encoding circuits under specified Pauli-noise, gate-set, and connectivity constraints.<br>
+  **Reproduction:** [code and notebooks](https://github.com/jolle-ag/qdx) · **simulation:** vectorized JAX Clifford simulation with a Knill–Laflamme reward · fixed symmetric-depolarizing `[[7,1,3]]` and biased-noise `[[6,1]]` demos · up to 25 physical qubits and distance 5 in the paper. `[2024] [simulation] [open-code]`
 
-### Public QEC data
+- [Optimizing hypergraph product codes with random walks, simulated annealing and reinforcement learning](https://arxiv.org/abs/2501.09622) — Projective-simulation RL rewires Tanner graphs to optimize HGP codes against erasure-channel logical failure, then tests transfer under BP+OSD bit-flip decoding.<br>
+  **Reproduction:** [code](https://github.com/BrunoCAF/ps-hgp-qec) · [released parity-check matrices](https://arxiv.org/abs/2501.09622) · **simulation:** quantum erasure channel with Monte-Carlo ML/GF(2) evaluation · `(3,4)`-LDPC seeds producing `[[625,25]]`, `[[1600,64]]`, and `[[2025,81]]` HGP codes. `[2025] [simulation] [open-code]`
 
-- [Sycamore QEC data for AlphaQubit](https://doi.org/10.5281/zenodo.6804040) — Experimental data supporting device-conditioned neural decoding. `[public-data]`
-- [Willow below-threshold QEC data](https://doi.org/10.5281/zenodo.13273331) — Experimental data accompanying below-threshold surface-code QEC. `[public-data]`
-- [Willow RL-control QEC data](https://doi.org/10.5281/zenodo.17566521) — Detection-event and control data for closed-loop QEC experiments. `[public-data]`
 
-### Simulators, decoders, and supporting toolchains
+<a id="decoder-systems"></a>
 
-- [Stim](https://github.com/quantumlib/Stim) — Fast stabilizer-circuit simulation for decoder data generation and evaluation. `[open-code] [supporting-tool]`
-- [PyMatching](https://github.com/oscarhiggott/PyMatching) — Minimum-weight-perfect-matching decoder implementation and baseline. `[open-code] [supporting-tool]`
-- [Sinter](https://github.com/quantumlib/Stim/tree/main/glue/sample) — Sampling and statistical-analysis tooling distributed with Stim. `[open-code] [supporting-tool]`
-- [CUDA-Q QEC](https://developer.nvidia.com/cuda-q-qec) — GPU-oriented QEC simulation and decoder-deployment tooling. It is infrastructure, not a stand-alone AI research claim. `[industry-artifact] [supporting-tool]`
-- [Ising Decoding](https://github.com/NVIDIA/Ising-Decoding) — Open NVIDIA training recipes for AI QEC decoder predecoding: a neural network consumes detector syndromes before a standard global decoder produces the final logical decision. Treat it as an engineering artifact, not an independently validated academic SOTA claim. `[open-code] [industry-artifact] [simulation] [supporting-tool]`
+### 🧠 Decoder systems
 
-## Frontier watchlist (updated September 2026)
+#### 🧷 Device-conditioned decoding
 
-These are testable forecasts, not core claims. A direction moves into the core only when it obtains stronger workload, latency, reproducibility, or hardware evidence.
+- [Learning high-accuracy error decoding for quantum processors (AlphaQubit)](https://www.nature.com/articles/s41586-024-08148-8) — A recurrent-transformer decoder using Sycamore syndrome data and soft-readout/leakage information; its distance-3–11 simulations additionally model crosstalk. It beats the reported tensor-network baseline on distance-3 and distance-5 hardware data, while distance-11 remains realistic-noise simulation.<br>
+  **Reproduction:** [Pauli+ simulation data and loading docs](https://storage.mtls.cloud.google.com/gdm-qec) · [Sycamore memory data](https://doi.org/10.5281/zenodo.6804040) · **hardware:** distance-3 and distance-5 Sycamore memory experiments · **simulation:** distance-3–11 Pauli+ noise with crosstalk · detailed architecture pseudocode in the supplement; no official training-code release. `[2024] [hardware] [simulation] [public-data]`
 
-- **Non-stationary, calibration-shift-aware decoding** — Evaluate recovery from drift, leakage, correlated bursts, and distribution shift rather than fixed i.i.d. Pauli noise alone.
-- **Hybrid learned + structured real-time decoders** — Learned predecoders, residual matching, distillation, quantization, and FPGA/GPU/ASIC deployment should be judged by end-to-end p50/p99 latency, backlog, and QPU logical error rate.
-- **Dynamic logical workloads** — Extend decoder tests beyond memory to entangling logical circuits, lattice surgery, magic-state protocols, and code deformation. Lattice surgery remains Frontier rather than an established AI-decoding result.
-- **QLDPC and graph-native learned decoding** — Strategic because of resource-efficient code families, but current learned-decoder evidence is primarily simulation; circuit-level noise, latency, and hardware data are the next thresholds.
-- **Auditable autonomous laboratory workflows** — [An agent-based laboratory framework](https://doi.org/10.1016/j.patter.2025.101372), demonstrated on a three-qubit subset of a 16-qubit superconducting platform, and [QCalEval](https://arxiv.org/abs/2604.25884) are promising only when safety constraints, recovery rates, versioned experimental traces, and end-to-end gains are measured. A small hardware demonstration or an agent benchmark alone is not closed-loop-QPU proof.
+- [Optimization of decoder priors for accurate quantum error correction](https://doi.org/10.1103/PhysRevLett.133.150603) — RL-inspired calibration of hardware-informed decoder priors in repetition- and surface-code memory experiments on Google’s Sycamore processor.<br>
+  **Reproduction:** **hardware:** repetition- and surface-code memory experiments on Google’s Sycamore processor · a public code or dataset artifact is not yet indexed here. `[2024] [hardware]`
 
-## Adjacent fields
+- [A fault-tolerant neutral-atom architecture for universal quantum computation](https://doi.org/10.1038/s41586-025-09848-5) — Cross-platform system evidence using loss-aware ML decoding on a 448-atom neutral-atom processor; the reported decoder remains distance- and circuit-specific.<br>
+  **Reproduction:** **simulation:** supplementary material includes the repeated-QEC [Stim](https://github.com/quantumlib/Stim) circuit and published error model · **hardware:** 448-atom neutral-atom processor · supporting data are otherwise available from the authors on request. `[2026] [hardware] [simulation] [data-restricted]`
 
-### AI-assisted quantum error mitigation (NISQ / pre-fault-tolerance)
+#### 🧬 Logical workloads and scale-out
 
-Fault-tolerant QEC provides scalable logical protection through error-correcting codes and fault-tolerant operations. Quantum error mitigation (QEM) uses additional sampling and post-processing to estimate ideal results from noisy executions; it can coexist with QEC, but is not itself the route to scalable fault-tolerant protection. QEM is therefore adjacent rather than a core section of this repository.
+- [Learning to decode logical circuits (MCCD)](https://www.nature.com/articles/s43588-025-00897-4) — Modular LSTM decoding for correlated errors in entangling logical circuits.<br>
+  **Reproduction:** [data](https://doi.org/10.5281/zenodo.17196063) · [code](https://doi.org/10.5281/zenodo.17196115) · **simulation:** [Stim](https://github.com/quantumlib/Stim) · surface-code circuit-level noise motivated by neutral-atom experiments · mirror-symmetric random logical Clifford circuits at distance 3 and 5. `[2025] [simulation] [open-code] [public-data]`
 
-- [Machine learning for practical quantum error mitigation](https://www.nature.com/articles/s42256-024-00927-2) — ML-QEM demonstrated on IBM hardware with code and data release. `[2024] [peer-reviewed] [hardware] [open-code] [public-data]`
-- [Exponentially tighter bounds on limitations of quantum error mitigation](https://www.nature.com/articles/s41567-024-02536-7) — A critical theoretical counterweight: generic QEM can require prohibitive sampling overhead. `[2024] [peer-reviewed] [theory]`
+- [Machine learning message-passing for scalable QLDPC decoding (Astra)](https://www.nature.com/articles/s41534-025-01033-w) — A graph-native learned message-passing decoder for surface and bivariate-bicycle codes with distance extrapolation.<br>
+  **Reproduction:** [code](https://github.com/arshpreetmaan/astra) · **simulation:** code-capacity depolarizing noise on Tanner graphs · training at lower and evaluation at larger code distances. `[2025] [simulation] [open-code]`
 
-### General AI circuit synthesis and transpilation
+<a id="controlled-simulation-and-decoder-evaluation"></a>
 
-These are useful adjacent techniques, but their present evaluation targets are generic logical/NISQ circuit tasks rather than an explicit fault-tolerant resource objective.
+#### 🥊 Simulation and decoder evaluation
 
-- [QSeed: Improving quantum circuit synthesis with machine learning](https://doi.org/10.1109/QCE57702.2023.00093) — Learns useful seeds for unitary synthesis to improve search speed while retaining low gate counts. `[2023] [peer-reviewed] [simulation]`
-- [Quarl: A learning-based quantum circuit optimizer](https://doi.org/10.1145/3649831) — Uses GNN representations and reinforcement learning to select semantics-preserving circuit rewrites, with a public experimental artifact. `[2024] [peer-reviewed] [simulation] [public-artifact]`
-- [Practical and efficient quantum circuit synthesis and transpiling with reinforcement learning](https://arxiv.org/abs/2405.13196) — A hardware-aware RL transpilation direction with an implementation path in the [Qiskit AI Transpiler](https://github.com/Qiskit/qiskit-ibm-transpiler). Treat it as a product-integrated engineering signal pending broader independent validation. `[2024] [preprint] [open-code] [industry-artifact]`
-- [QCircuitBench](https://proceedings.neurips.cc/paper_files/paper/2025/hash/3e343c7fa87656d7e88e9a83cb2a5d10-Abstract-Datasets_and_Benchmarks_Track.html) — An executable benchmark for quantum algorithm and circuit design, with syntax, semantic, and efficiency checks rather than LLM-as-judge evaluation. `[2025] [peer-reviewed] [benchmark] [public-data]`
+- [decoder-bench: Benchmarking Decoders for Quantum Error Correction](https://doi.org/10.1109/IISWC66894.2025.00032) — A shared-trace benchmark that separates decoder quality from private simulator and workload choices; its registry supplies adapters for several classical decoders and can be extended.<br>
+  **Reproduction:** [data](https://doi.org/10.5281/zenodo.16914504) · [code](https://github.com/satvikmaurya/decoder-bench) · **simulation:** [Stim](https://github.com/quantumlib/Stim)-generated HDF5 check matrices, syndromes, and observables for surface, bivariate-bicycle QLDPC, color-code memory, and surface-code lattice surgery under code-capacity, phenomenological, and circuit-level noise. `[2025] [simulation] [benchmark] [open-code] [public-data]`
 
-### Related lists
+- [PyMatching](https://github.com/oscarhiggott/PyMatching) — A minimum-weight-perfect-matching decoder baseline. `[open-code] [supporting-tool]`
 
-- [Awesome Quantum Machine Learning](https://github.com/artix41/awesome-quantum-ml) — Quantum computers for machine learning; intentionally outside this repository's scope.
+- [QEC LEGO Bench](https://qec-lego-bench.readthedocs.io/en/latest/) — A latency-aware streaming-decoder benchmark that converts decoding delay into induced idle error; the authors explicitly label the package very early-stage. `[benchmark] [open-code]`
+
+<a id="runtime-and-adaptive-operation"></a>
+
+### ⚡ Runtime and adaptive operation
+
+#### ⏱️ Runtime deployment and its measurement contract
+
+- [Quantum error correction below the surface code threshold](https://www.nature.com/articles/s41586-024-08449-y) — A below-threshold QEC system landmark on Willow. Its high-accuracy neural decoder is offline; the actual real-time path is a Sparse Blossom streaming stack.<br>
+  **Reproduction:** [hardware data](https://doi.org/10.5281/zenodo.13273331) · **hardware:** Willow surface-code QEC experiments · benchmark offline decoders against the release · the paper’s real-time Sparse Blossom implementation is not released as a runnable artifact. `[2025] [hardware] [public-data] [latency-reported]`
+
+- [StabilizerBench](https://arxiv.org/abs/2604.21287) — A benchmark for AI-assisted QEC circuit synthesis; useful for evaluation, not a real-time deployment result.<br>
+  **Reproduction:** [benchmark implementation](https://github.com/uw-math-ai/quantum-ai) · **simulation:** Stim circuit tasks with automated verification oracles and task-specific metrics. `[2026] [preprint] [benchmark] [open-code]`
+
+#### 🔁 Closed-loop adaptation
+
+- [Reinforcement learning control of quantum error correction](https://www.nature.com/articles/s41586-026-10759-2) — Uses detection events to update more than 1,000 QEC control parameters across repeated Willow experiments under drift.<br>
+  **Reproduction:** [experiment data](https://doi.org/10.5281/zenodo.17566521) · **hardware:** repeated Willow QEC runs under drift · **simulation:** proprietary dynamic surface-code models scale the policy study to distance 15 · source code and simulator are not public. `[2026] [hardware] [simulation] [public-data] [code-closed]`
+
+- [Real-time quantum error correction beyond break-even](https://doi.org/10.1038/s41586-023-05782-6) — A historical precursor in which model-free RL optimized bosonic-QEC control beyond break-even.<br>
+  **Reproduction:** **hardware:** bosonic-QEC experiment · a public code or dataset artifact is not yet indexed here. `[2023] [hardware] [historical-precursor]`
+
+- [Realizing a deep reinforcement learning agent for real-time quantum feedback](https://www.nature.com/articles/s41467-023-42901-3) — Direct-on-experiment RL training with sub-microsecond FPGA feedback for a superconducting qubit; important for control, but not a full QEC system.<br>
+  **Reproduction:** [experiment data](https://doi.org/10.3929/ethz-b-000637125) · **hardware:** superconducting qubit with sub-microsecond FPGA feedback · analysis code is available from the authors on request · live execution requires FPGA-integrated hardware. `[2023] [hardware] [latency-reported] [historical-precursor]`
+
+<a id="reproducibility-ecosystem"></a>
+
+## 🧩🧩🧩 Ecosystem 🧩🧩🧩
+
+### 📦 Data and measurement traces
+
+- [Sycamore QEC data for AlphaQubit](https://doi.org/10.5281/zenodo.6804040) — Hardware syndrome, soft-readout, and leakage data. `[public-data] [hardware]`
+- [Willow below-threshold QEC data](https://doi.org/10.5281/zenodo.13273331) — Hardware surface-code QEC data. `[public-data] [hardware]`
+- [Willow RL-control QEC data](https://doi.org/10.5281/zenodo.17566521) — Detection-event and control traces for closed-loop QEC experiments. `[public-data] [hardware]`
+- [MCCD data](https://doi.org/10.5281/zenodo.17196063) — Logical-circuit decoding data. `[public-data] [simulation]`
+- [Spin-qubit tuning data](https://doi.org/10.5281/zenodo.17745219) — Experimental traces and trained models for autonomous spin-qubit tuning. `[public-data] [hardware]`
+
+### 🧰 Simulation toolchain
+
+- [Stim](https://github.com/quantumlib/Stim) — Stabilizer-circuit simulator for syndrome and decoder-data generation. `[open-code] [supporting-tool]`
+- [Sinter](https://github.com/quantumlib/Stim/tree/main/glue/sample) — Sampling and statistical-analysis layer distributed with Stim. `[open-code] [supporting-tool]`
+- [Deltakit-Stim](https://github.com/Deltakit/deltakit-stim) — An Apache-2.0 Stim extension for leakage, heralded leakage, and adaptive detector-error-model metadata; useful when a conventional Pauli-only DEM is not the relevant simulation contract. `[open-code] [supporting-tool]`
+- [CUDA-Q QEC](https://developer.nvidia.com/cuda-q-qec) — GPU-oriented simulation and QEC development stack. `[industry-artifact] [supporting-tool]`
+- [LightStim](https://github.com/QuTone/LightStim) — A protocol-evaluation framework with automated DEM construction and unified decoder backends; it is a reproducible simulation toolchain, not a neutral shared decoder leaderboard. `[2026] [preprint] [simulation] [open-code] [supporting-tool]`
+- [Syndrilla](https://github.com/UnaryLab/syndrilla) — A PyTorch simulator and training/evaluation harness for multiple decoder families, configurable error sources, and LER/throughput sweeps; it is an on-demand harness rather than a fixed benchmark corpus. `[2025] [simulation] [open-code] [supporting-tool]`
+
+### 🧠 Decoder implementations and benchmarks
+
+- [PyMatching](https://github.com/oscarhiggott/PyMatching) — MWPM decoder baseline. `[open-code] [supporting-tool]`
+- [MCCD code](https://doi.org/10.5281/zenodo.17196115) — Reference implementation for logical-circuit decoding. `[open-code]`
+- [Astra](https://github.com/arshpreetmaan/astra) — Open learned message-passing decoder implementation. `[open-code]`
+- [Ising Decoding](https://github.com/NVIDIA/Ising-Decoding) — AI decoder training, optimization, and deployment recipes. `[open-code] [industry-artifact]`
+- [decoder-bench](https://github.com/satvikmaurya/decoder-bench) — Shared synthetic traces and adapters for reproducible decoder comparisons; see the [controlled-evaluation entry](#controlled-simulation-and-decoder-evaluation) for scope. `[benchmark] [open-code] [public-data]`
+- [QEC LEGO Bench](https://qec-lego-bench.readthedocs.io/en/latest/) — Early-stage, latency-aware streaming benchmark infrastructure. `[benchmark] [open-code]`
+- [StabilizerBench](https://arxiv.org/abs/2604.21287) — Evaluation for AI QEC-circuit synthesis, not decoder comparison. `[benchmark]`
+
+## 🛤️🛤️🛤️ Parallel Tracks 🛤️🛤️🛤️
+
+### 🧮 Fault-tolerant resource optimization
+
+- [Quantum circuit discovery for fault-tolerant logical state preparation with reinforcement learning](https://doi.org/10.1103/gqpr-dgz7) — Reinforcement learning for compact, hardware-constrained fault-tolerant logical state-preparation circuits.<br>
+  **Reproduction:** [code](https://github.com/remmyzen/rlftqc) · **simulation:** configurable target stabilizers, gate sets, and connectivity for logical-state preparation, verification-circuit synthesis, and integrated fault-tolerant preparation. `[2025] [simulation] [open-code]`
+
+- [Quantum circuit optimization with AlphaTensor-Quantum](https://www.nature.com/articles/s42256-025-01001-1) — Reinforcement learning and tensor decomposition for explicit fault-tolerant T-count optimization.<br>
+  **Reproduction:** [source and runnable demo](https://github.com/google-deepmind/alphatensor_quantum) · [released decompositions](https://doi.org/10.5281/zenodo.14679491) · optional [circuit-to-tensor pipeline](https://github.com/tlaakkonen/circuit-to-tensor) · **simulation:** fault-tolerant T-count optimization · the full research source is not itself runnable. `[2025] [simulation] [open-code] [public-data]`
+
+### 🪄 General AI circuit synthesis and transpilation
+
+- [QSeed: Improving quantum circuit synthesis with machine learning](https://doi.org/10.1109/QCE57702.2023.00093) — ML-guided seeds for unitary synthesis.<br>
+  **Reproduction:** **simulation:** unitary-synthesis study · a public implementation is not indexed here. `[2023] [simulation]`
+
+- [Quarl: A learning-based quantum circuit optimizer](https://doi.org/10.1145/3649831) — GNN and reinforcement-learning circuit rewriting with a public artifact.<br>
+  **Reproduction:** [artifact and reproduction guide](https://doi.org/10.5281/zenodo.10463907) · **simulation:** circuit-rewrite evaluation with the released optimizer. `[2024] [simulation] [public-artifact]`
+
+- [Practical and efficient quantum circuit synthesis and transpiling with reinforcement learning](https://arxiv.org/abs/2405.13196) — Hardware-aware RL transpilation with an implementation path in the Qiskit AI Transpiler.<br>
+  **Reproduction:** [Qiskit AI Transpiler](https://github.com/Qiskit/qiskit-ibm-transpiler) · **simulation:** local AI transpiler passes · cloud-based transpilation workflows require IBM Quantum Premium access. `[2024] [preprint] [open-code] [industry-artifact]`
+
+- [QCircuitBench](https://proceedings.neurips.cc/paper_files/paper/2025/hash/3e343c7fa87656d7e88e9a83cb2a5d10-Abstract-Datasets_and_Benchmarks_Track.html) — Executable evaluation for quantum algorithm and circuit design.<br>
+  **Reproduction:** [dataset and generation code](https://github.com/EstelYang/QCircuitBench) · **simulation:** executable circuit-design tasks with automatic validation and verification · demo data on GitHub; full data through the project release. `[2025] [benchmark] [public-data] [open-code]`
+
+### 🩹 Quantum error mitigation (QEM)
+
+QEM uses additional sampling and post-processing to estimate ideal outcomes from noisy executions. It can coexist with QEC, but is not the route to scalable fault-tolerant protection.
+
+- [Machine learning for practical quantum error mitigation](https://www.nature.com/articles/s42256-024-00927-2) — ML-QEM demonstrated on IBM hardware with code and data release.<br>
+  **Reproduction:** [code, configurations, training/evaluation scripts, and datasets](https://github.com/qiskit-community/ml-qem/tree/research_branch) · [archival release](https://doi.org/10.5281/zenodo.13769804) · **hardware:** IBM quantum-device experiments. `[2024] [hardware] [open-code] [public-data]`
+
+- [Exponentially tighter bounds on limitations of quantum error mitigation](https://www.nature.com/articles/s41567-024-02536-7) — A theoretical counterweight: generic QEM can require prohibitive sampling overhead.<br>
+  **Reproduction:** **theory:** analytical result and proof; no empirical training or hardware artifact is required. `[2024] [theory]`
+
+## 🌍 Related lists
+
+- [Awesome Quantum Machine Learning](https://github.com/artix41/awesome-quantum-ml) — Quantum computers for machine learning; outside this repository’s scope.
 - [Awesome Quantum Software](https://github.com/qosf/awesome-quantum-software) — Broad quantum-software catalogue.
 - [ML4QTech Collection](https://github.com/ML4QTech/Collection) — Broader ML-for-quantum-science community collection.
 
-## Contributing
+## 🫶 Contributing
 
-Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and include a primary source, a neutral description, evidence tags, artifact status, and the exact workload or noise setting.
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and include a primary source, a neutral description, a reproduction line, evidence tags, artifact status, and the exact workload or noise setting.
 
-## License
+## 📜 License
 
 [MIT](LICENSE) © Rong Tao

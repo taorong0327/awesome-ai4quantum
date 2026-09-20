@@ -19,9 +19,9 @@ Aim for 20–40 words. Describe the engineering task, the evaluation setting, an
 
 ## Evidence tags
 
-For example: `[2026] [peer-reviewed] [hardware] [public-data] [open-code] [latency-reported]`
+For example: `[2026] [hardware] [public-data] [open-code] [latency-reported]`
 
-Use only applicable tags; omit unknown code, data, or latency status.
+Use only applicable tags; use `[preprint]` only when the source has not passed peer review; omit unknown code, data, or latency status.
 
 ## Why it belongs
 

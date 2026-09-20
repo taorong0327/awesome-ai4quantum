@@ -1,4 +1,4 @@
-# Contributing to Awesome AI for Quantum Hardware & Fault-Tolerant Computing
+# Contributing to Awesome AI for Practical Quantum Computing
 
 Thank you for helping keep this list useful and evidence-led.
 
@@ -16,10 +16,11 @@ Aim for a concise, neutral description of 20–40 words; exceed that only when a
 ```md
 - [Project or paper](https://primary.example) — Neutral description of the
   contribution, evaluation setting, and material limitation.
-  `[2026] [peer-reviewed] [hardware] [public-data] [open-code] [latency-reported]`
+  **Reproduction:** [data](https://data.example) · [code](https://code.example) · **hardware:** concise device or evaluation setting.
+  `[2026] [hardware] [public-data] [open-code] [latency-reported]`
 ```
 
-Use only applicable tags. If code, data, or latency status is unknown, omit the tag rather than guessing. Do not infer hardware validation, code availability, or production readiness from an author affiliation.
+Use only applicable tags. Peer review is an editorial admission criterion for Core, not an inline tag; use `[preprint]` only when the source has not passed peer review. If code, data, or latency status is unknown, omit the tag rather than guessing. Do not infer hardware validation, code availability, or production readiness from an author affiliation.
 
 ## Editorial thresholds
 

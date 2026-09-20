@@ -27,7 +27,7 @@ This rubric guides editorial judgment; it is not published as a spurious numeric
 Every research entry should make these distinctions when relevant:
 
 ```text
-[peer-reviewed | preprint]
+[preprint] (only when the source has not passed peer review)
 [hardware | simulation | theory]
 [public-data | data-restricted]
 [open-code | code-closed | public-artifact | industry-artifact]
@@ -35,7 +35,7 @@ Every research entry should make these distinctions when relevant:
 [benchmark | supporting-tool | historical-precursor]
 ```
 
-Multiple evaluation-setting tags may apply. Omit a tag when its status is unknown; do not use a negative tag such as `latency-not-reported` merely because a source does not foreground it. “Hardware” does not imply that code, workloads, or raw data are public. “Open code” does not imply an independent reproduction. “SOTA” is avoided unless the comparison contract is explicit and relevant to the claimed use case.
+Peer review is an editorial admission criterion for Core, not an inline tag. Multiple evaluation-setting tags may apply. Omit a tag when its status is unknown; do not use a negative tag such as `latency-not-reported` merely because a source does not foreground it. “Hardware” does not imply that code, workloads, or raw data are public. “Open code” does not imply an independent reproduction. “SOTA” is avoided unless the comparison contract is explicit and relevant to the claimed use case.
 
 ## Scope boundary: QEC and QEM
 
